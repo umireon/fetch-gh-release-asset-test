@@ -30,3 +30,26 @@ jobs:
           echo ${{ steps.get_release.outputs.name }}
           echo ${{ steps.get_release.outputs.body }}
           ls -l subdir/plague-linux.zip
+  demo-mac:
+    name: Demo Mac
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create a subdirectory
+        run: |
+          mkdir subdir
+      - name: Get the latest release
+        id: get_release
+        uses: umireon/fetch-gh-release-asset@master
+        with:
+          repo: "dsaltares/godot-wild-jam-18"
+          version: "tags/v0.1.18"
+          file: "plague-linux.zip"
+          target: "subdir/plague-linux.zip"
+      - name: Display the details
+        run: |
+          echo ${{ steps.get_release.outputs.version }}
+          echo ${{ steps.get_release.outputs.name }}
+          echo ${{ steps.get_release.outputs.body }}
+          ls -l subdir/plague-linux.zip
