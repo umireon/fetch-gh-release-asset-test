@@ -18,7 +18,7 @@ jobs:
           mkdir subdir
       - name: Get the latest release
         id: get_release
-        uses: ./
+        uses: umireon/fetch-gh-release-asset@master
         with:
           repo: "dsaltares/godot-wild-jam-18"
           version: "tags/v0.1.18"
