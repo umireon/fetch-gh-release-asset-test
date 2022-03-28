@@ -72,7 +72,7 @@ jobs:
           target: "subdir/plague-linux.zip"
       - name: Display the details
         run: |
-          echo ${{ steps.get_release.outputs.version }}
-          echo ${{ steps.get_release.outputs.name }}
-          echo ${{ steps.get_release.outputs.body }}
+          echo Version ${{ steps.get_release.outputs.version }}
+          echo Name ${{ steps.get_release.outputs.name }}
+          echo Body ${{ steps.get_release.outputs.body }}
           dir subdir/plague-linux.zip
