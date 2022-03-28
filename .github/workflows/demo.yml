@@ -55,7 +55,7 @@ jobs:
           ls -l subdir/plague-linux.zip
   demo-win:
     name: Demo Win
-    runs-on: windowd-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
