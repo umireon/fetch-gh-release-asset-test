@@ -18,7 +18,7 @@ jobs:
           mkdir subdir
       - name: Get the latest release
         id: get_release
-        uses: dsaltares/fetch-gh-release-asset@master
+        uses: umireon/fetch-gh-release-asset@master
         with:
           repo: "umireon/private-test-repo"
           version: "tags/0.1.0"
