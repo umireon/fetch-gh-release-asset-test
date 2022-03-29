@@ -20,7 +20,7 @@ jobs:
         id: get_release
         uses: umireon/fetch-gh-release-asset@node16
         with:
-          repo: "dsaltares/godot-wild-jam-18"
+          repo: "umireon/private-test-repo"
           version: "tags/v0.1.18"
           file: "plague-linux.zip"
           target: "subdir/plague-linux.zip"
