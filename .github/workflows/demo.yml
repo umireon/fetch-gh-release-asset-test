@@ -24,6 +24,7 @@ jobs:
           version: "tags/0.1.0"
           file: "plague-linux.zip"
           target: "subdir/plague-linux.zip"
+          token: ${{ github.token }}
       - name: Display the details
         run: |
           echo ${{ steps.get_release.outputs.version }}
