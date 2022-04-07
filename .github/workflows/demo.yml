@@ -6,10 +6,25 @@ on:
     branches:
       - master
 
+name: Demo
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
 jobs:
   demo:
+    strategy:
+      matrix:
+        runs-on:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
     name: Demo
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,55 +39,16 @@ jobs:
           version: "tags/v0.1.18"
           file: "plague-linux.zip"
           target: "subdir/plague-linux.zip"
-      - name: Display the details
+      - name: Display the outputs
         run: |
           echo ${{ steps.get_release.outputs.version }}
           echo ${{ steps.get_release.outputs.name }}
           echo ${{ steps.get_release.outputs.body }}
-          ls -l subdir/plague-linux.zip
-  demo-mac:
-    name: Demo Mac
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Create a subdirectory
-        run: |
-          mkdir subdir
-      - name: Get the latest release
-        id: get_release
-        uses: umireon/fetch-gh-release-asset@node16
-        with:
-          repo: "dsaltares/godot-wild-jam-18"
-          version: "tags/v0.1.18"
-          file: "plague-linux.zip"
-          target: "subdir/plague-linux.zip"
-      - name: Display the details
-        run: |
-          echo ${{ steps.get_release.outputs.version }}
-          echo ${{ steps.get_release.outputs.name }}
-          echo ${{ steps.get_release.outputs.body }}
-          ls -l subdir/plague-linux.zip
-  demo-win:
-    name: Demo Win
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Create a subdirectory
-        run: |
-          mkdir subdir
-      - name: Get the latest release
-        id: get_release
-        uses: umireon/fetch-gh-release-asset@node16
-        with:
-          repo: "dsaltares/godot-wild-jam-18"
-          version: "tags/v0.1.18"
-          file: "plague-linux.zip"
-          target: "subdir/plague-linux.zip"
-      - name: Display the details
-        run: |
-          echo Version ${{ steps.get_release.outputs.version }}
-          echo Name ${{ steps.get_release.outputs.name }}
-          echo Body ${{ steps.get_release.outputs.body }}
-          dir subdir/plague-linux.zip
+      - name: Display the file (Linux, Mac)
+        run: ls -l subdir/plague-linux.zip
+        if: matrix.runs-on != 'windows-latest'
+      - name: Display the file (Windowsd)
+        run: dir subdir/plague-linux.zip
+        if: matrix.runs-on == 'windows-latest'
+                  
+
